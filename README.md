@@ -187,7 +187,7 @@ The same `before` and `after` callbacks are available here.
 
 ### Turbolinks
 
-Dispatcher works with Turbolinks. You don't have to do anything special and, to be frank, the code is exactly the same. You just need to set up the `data-route` attribute in your `<body>` element.
+Dispatcher works with Turbolinks. You don't have to do anything special. You just need to set up the `data-route` attribute in your `<body>` element.
 
 ```javascript
 var MyApp = {
@@ -204,6 +204,16 @@ Dispatcher.init(MyApp);
 ```html
 <body data-route="<%= dispatcher_route %>"></body>
 ```
+
+If you use the `document:ready` event to call Dispatcher, you'll notice that Turbolinks won't work. The only change that must be done is to insert the Dispatcher call on the `page:change` event, like shown below:
+
+```javascript
+$(document).on("page:change", function() {
+  Dispatcher.run(app, $("body").data("route"));
+});
+```
+
+You can check more information on this [web site](http://guides.rubyonrails.org/working_with_javascript_in_rails.html#page-change-events).
 
 ### Aliases
 
